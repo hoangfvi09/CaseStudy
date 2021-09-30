@@ -9,7 +9,7 @@ class Lane {
     constructor(laneNo,left, id) {
         this.top=MAP_TOP+laneNo*MAP_HEIGHT;
         this.left=left;
-        this.speed=OBSTACLE_SPEED-2;
+        this.speed=OBSTACLE_SPEED;
         this.src=LANE_SRC;
         this.width=LANE_WIDTH;
         this.height=MAP_HEIGHT

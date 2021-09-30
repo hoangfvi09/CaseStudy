@@ -4,7 +4,7 @@ class Obstacle {
     src;
 
     constructor(id) {
-        this.top = -CAR_HEIGHT / 2
+        this.top = -OBSTACLE_HEIGHT
         this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH
         this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.jpg'
         this.id = id

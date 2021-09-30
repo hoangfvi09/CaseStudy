@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        .main{
+            width: 450px;
+            height: 800px;
+            background-color: rgb(122, 121, 115);
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
         .imgL {
             z-index: 1;
             transition: 2.5s;
         }
-        .imgO {
-            z-index: 4;
-            transition: 2.5s;
-        }
+
         .imgC{
             z-index: 2;
             transition: 2.5s;
@@ -20,7 +25,26 @@
             z-index: 3;
             transition: 2.5s;
         }
+        .imgO {
+            z-index: 4;
+            transition: 2.5s;
+        }
+        .score{
+            position: absolute;
+            top: 15px;
+            left: 50px;
+            text-align: center;
+            padding-top: 23px;
+            font-size: 30px;
+            line-height: 20px;
+            background-color: rgba(34, 119, 8, 0.952);
+            color: white;
+            width: 300px;
+            height: 100px;
+            box-shadow: 0 0 20px 0px rgba(0,0,0,0.1);
+        }
     </style>
+
 
 </head>
 <style>
@@ -30,12 +54,14 @@
 <div class="main" id="gameArea">
 
 </div>
+<div id="score" class="score">score</div>
 
 <script src="const.js"></script>
 <script src="lane.js"></script>
 <script src="obstacle.js"></script>
 <script src="car.js"></script>
 <script src="reward.js"></script>
+<script src="puddle.js"></script>
 <script src="index.js"></script>
 </body>
 </html>

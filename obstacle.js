@@ -6,8 +6,8 @@ class Obstacle {
 
     constructor(id) {
         this.top = -OBSTACLE_HEIGHT
-        this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH
-        this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.jpg'
+        this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH+40
+        this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.png'
         this.id = id
         this.status=true;
     }
@@ -19,8 +19,8 @@ class Obstacle {
     moveDown() {
         if (this.top > MAP_TOP+MAP_HEIGHT) {
             this.top = -OBSTACLE_HEIGHT / 2
-            this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.jpg'
-            this.left= MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH
+            this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.png'
+            this.left= MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH+40
         } else {
             this.top += OBSTACLE_SPEED
         }

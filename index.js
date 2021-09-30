@@ -9,6 +9,9 @@ class Main {
     rewards;
     playerScore;
     lives;
+    puddles;
+    puddleNo;
+
 
     constructor() {
         this.lanes = []
@@ -18,6 +21,8 @@ class Main {
         this.rewardNo = 0;
         this.playerScore = 0;
         this.lives = 5;
+        this.puddles=[];
+        this.puddleNo=0;
     }
 
     createCar() {
@@ -47,6 +52,12 @@ class Main {
             this.rewardNo++;
         }
     }
+    createPuddle() {
+        if (this.puddleNo < NUMBER_OF_PUDDLE) {
+            this.puddles.push(new Puddle('puddle' + this.puddleNo))
+            this.puddleNo++;
+        }
+    }
 
     moveLane() {
         for (let i = 0; i < this.lanes.length; i++) {
@@ -64,6 +75,11 @@ class Main {
     moveReward() {
         for (let i = 0; i < this.rewards.length; i++) {
             this.rewards[i].moveDown()
+        }
+    }
+    movePuddle() {
+        for (let i = 0; i < this.puddles.length; i++) {
+            this.puddles[i].moveDown()
         }
     }
 
@@ -91,6 +107,11 @@ class Main {
             if (this.rewards[i].status === true) {
                 gameArea += this.rewards[i].drawReward()
             }
+        }
+        for (let i = 0; i < this.puddles.length; i++) {
+
+                gameArea += this.puddles[i].drawPuddle()
+
         }
 
         gameArea += this.car.drawCar()
@@ -142,8 +163,9 @@ class Main {
             }
         }
     }
-
-
+    upDateScore(){
+        document.getElementById("score").innerHTML='SCORE: '+this.playerScore
+    }
 }
 
 
@@ -164,9 +186,10 @@ function drawAll() {
     game.checkGainReward()
     game.moveLane();
     game.moveObstacle();
-    game.moveReward()
+    game.moveReward();
+    // game.movePuddle()
     game.reDrawAll();
-
+    game.upDateScore()
     let drawAnimation;
     drawAnimation = requestAnimationFrame(drawAll);
 }
@@ -174,14 +197,19 @@ function drawAll() {
 function addO() {
     game.createObstacle();
     game.reDrawAll();
-    setTimeout(addO, 6000);
+    setTimeout(addO, 3000);
 }
 
 function addR() {
     game.createReward();
     game.reDrawAll();
-    setTimeout(addR, 8000);
+    setTimeout(addR, 1500);
 }
+// function addM() {
+//     game.createPuddle();
+//     game.reDrawAll();
+//     setTimeout(addM, 3000);
+// }
 
 
 // key event
@@ -202,4 +230,5 @@ function docReady() {
 
 drawAll()
 addO();
-addR()
+addR();
+addM();

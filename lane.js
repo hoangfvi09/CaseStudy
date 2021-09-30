@@ -14,9 +14,7 @@ class Lane {
         this.width = LANE_WIDTH;
         this.height = MAP_HEIGHT
         this.id = 'lane' + id
-
     }
-
     moveDown() {
         if (this.top > MAP_TOP + MAP_HEIGHT) {
             this.top = MAP_TOP - MAP_HEIGHT

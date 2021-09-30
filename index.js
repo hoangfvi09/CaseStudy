@@ -5,12 +5,17 @@ class Main {
     obstacles;
     obstacleNo;
     car;
+    rewardNo;
+    rewards;
+    playerScore;
 
     constructor() {
         this.lanes = []
         this.obstacles = []
+        this.rewards = [];
         this.obstacleNo = 0;
-        this.createObstacle();
+        this.rewardNo = 0;
+        this.playerScore=0;
     }
 
     createCar() {
@@ -40,6 +45,13 @@ class Main {
         }
     }
 
+    createReward() {
+        if (this.rewardNo < NUMBER_OF_REWARDS) {
+            this.rewards.push(new Reward(('reward' + this.rewardNo)))
+            this.rewardNo++;
+        }
+    }
+
     moveLane() {
         for (let i = 0; i < this.lanes.length; i++) {
             this.lanes[i].moveDown()
@@ -50,6 +62,12 @@ class Main {
     moveObstacle() {
         for (let i = 0; i < this.obstacles.length; i++) {
             this.obstacles[i].moveDown()
+        }
+    }
+
+    moveReward() {
+        for (let i = 0; i < this.rewards.length; i++) {
+            this.rewards[i].moveDown()
         }
     }
 
@@ -71,6 +89,10 @@ class Main {
         for (let i = 0; i < this.obstacles.length; i++) {
             gameArea += this.obstacles[i].drawObstacle()
         }
+        for (let i = 0; i < this.rewards.length; i++) {
+            gameArea += this.rewards[i].drawReward()
+        }
+
         gameArea += this.car.drawCar()
         document.getElementById("gameArea").innerHTML = gameArea
     }
@@ -78,6 +100,15 @@ class Main {
     checkCollision() {
         for (let i = 0; i < this.obstacleNo; i++) {
             let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
+            let carCoordinate = document.getElementById('car').getBoundingClientRect()
+            if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
+                endGame()
+            }
+        }
+    }
+    checkGainReward(){
+        for (let i = 0; i < this.rewardNo; i++) {
+            let obstacleCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
             let carCoordinate = document.getElementById('car').getBoundingClientRect()
             if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
                 endGame()
@@ -104,6 +135,7 @@ function endGame() {
 function drawAll() {
     game.moveLane();
     game.moveObstacle();
+    game.moveReward()
     game.checkCollision()
     game.reDrawAll();
     let drawAnimation;
@@ -114,6 +146,12 @@ function addO() {
     game.createObstacle();
     game.reDrawAll();
     setTimeout(addO, 1000);
+}
+
+function addR() {
+    game.createReward();
+    game.reDrawAll();
+    setTimeout(addO, 10000);
 }
 
 
@@ -135,3 +173,4 @@ function docReady() {
 
 drawAll()
 addO();
+addR()

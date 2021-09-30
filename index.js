@@ -8,7 +8,8 @@ class Main {
     constructor() {
         this.lanes = []
         this.obstacles = []
-        this.obstacleNo=0
+        this.obstacleNo = 0;
+        this.createObstacle();
     }
 
     createCar() {
@@ -22,11 +23,11 @@ class Main {
     //         gameArea += this.obstacles[i].drawObstacle();
     //     }
     // }
-    createObstacle(){
-        if(this.obstacleNo<NUMBER_OF_OBSTACLES){
-            this.obstacles.push(new Obstacle(('obstacle'+this.obstacleNo)))
+    createObstacle() {
+        if (this.obstacleNo < NUMBER_OF_OBSTACLES) {
+            this.obstacles.push(new Obstacle(('obstacle' + this.obstacleNo)))
             gameArea += this.obstacles[this.obstacleNo].drawObstacle();
-            this.obstacleNo++
+            this.obstacleNo++;
         }
     }
 
@@ -51,22 +52,27 @@ class Main {
     moveObstacle() {
         for (let i = 0; i < this.obstacles.length; i++) {
             this.obstacles[i].moveDown()
-            document.getElementById("obstacle" + i).style.top = this.obstacles[i].top + 'px'
+            document.getElementById("obstacle" + i).style.top = this.obstacles[i].top + 'px';
         }
     }
 }
-
 
 
 let game = new Main()
 game.createLanes()
 game.createCar()
 document.getElementById("gameArea").innerHTML = gameArea;
-console.log(gameArea)
-
 function drawAll() {
     game.moveLane();
-    game.moveObstacle()
+    game.moveObstacle();
     requestAnimationFrame(drawAll);
 }
+function addO() {
+    game.createObstacle();
+    document.getElementById("gameArea").innerHTML = gameArea;
+    setTimeout(addO, 1000);
+}
 drawAll()
+
+addO();
+

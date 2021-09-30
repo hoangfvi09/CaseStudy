@@ -11,7 +11,6 @@ class Obstacle {
     }
 
     drawObstacle() {
-        console.log(this.id)
         return '<img class="imgO" id="' + this.id + '" src="' + this.src + '" height="' + OBSTACLE_HEIGHT + '" width="' + OBSTACLE_WIDTH + '" style="position:absolute;left:' + this.left + 'px; top:' + this.top + 'px"/>'
     }
 

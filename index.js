@@ -90,7 +90,9 @@ class Main {
             gameArea += this.obstacles[i].drawObstacle()
         }
         for (let i = 0; i < this.rewards.length; i++) {
-            gameArea += this.rewards[i].drawReward()
+            if (this.rewards[i].status === true) {
+                gameArea += this.rewards[i].drawReward()
+            }
         }
 
         gameArea += this.car.drawCar()
@@ -108,10 +110,15 @@ class Main {
     }
     checkGainReward(){
         for (let i = 0; i < this.rewardNo; i++) {
-            let obstacleCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
-            let carCoordinate = document.getElementById('car').getBoundingClientRect()
-            if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
-                endGame()
+            if (this.rewards[i].status === true) {
+                let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
+                let carCoordinate = document.getElementById('car').getBoundingClientRect()
+                if ((rewardCoordinate.x === carCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > carCoordinate.y)) {
+                    // this.playerScore+=20
+                    this.rewards[i].status = false
+                    console.log(game.rewards[i].status)
+                }
+
             }
         }
     }
@@ -133,11 +140,13 @@ function endGame() {
 }
 
 function drawAll() {
+    game.checkCollision()
+    game.checkGainReward()
     game.moveLane();
     game.moveObstacle();
     game.moveReward()
-    game.checkCollision()
     game.reDrawAll();
+
     let drawAnimation;
     drawAnimation = requestAnimationFrame(drawAll);
 }
@@ -151,7 +160,7 @@ function addO() {
 function addR() {
     game.createReward();
     game.reDrawAll();
-    setTimeout(addO, 10000);
+    setTimeout(addR, 10000);
 }
 
 

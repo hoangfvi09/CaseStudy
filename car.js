@@ -11,13 +11,13 @@ class Car {
     }
     moveRight(){
         if(this.left<MAP_LEFT+LANE_WIDTH*(NUMBER_OF_LANES-1)){
-            this.left-=CAR_SPEED;
+            this.left+=CAR_SPEED;
         }
 
     }
     moveLeft(){
-        if(this.left>MAP_LEFT){
-            this.left+=CAR_SPEED;
+        if(this.left>=MAP_LEFT+LANE_WIDTH){
+            this.left-=CAR_SPEED;
         }
 
     }

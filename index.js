@@ -4,6 +4,7 @@ class Main {
     lanes;
     obstacles;
     obstacleNo;
+    car;
 
     constructor() {
         this.lanes = []
@@ -13,8 +14,8 @@ class Main {
     }
 
     createCar() {
-        let car = new Car()
-        gameArea += car.drawCar()
+        this.car = new Car('car')
+        gameArea += this.car.drawCar()
     }
 
     // createObstacle() {
@@ -26,7 +27,6 @@ class Main {
     createObstacle() {
         if (this.obstacleNo < NUMBER_OF_OBSTACLES) {
             this.obstacles.push(new Obstacle(('obstacle' + this.obstacleNo)))
-            gameArea += this.obstacles[this.obstacleNo].drawObstacle();
             this.obstacleNo++;
         }
     }
@@ -34,11 +34,9 @@ class Main {
     createLanes() {
         for (let i = 0; i < NUMBER_OF_LANES; i++) {
             this.lanes.push(new Lane(0, MAP_LEFT + i * LANE_WIDTH, i))
-            gameArea += this.lanes[i].drawLane()
         }
         for (let i = 0; i < NUMBER_OF_LANES; i++) {
             this.lanes.push(new Lane(1, MAP_LEFT + i * LANE_WIDTH, (i + NUMBER_OF_LANES)))
-            gameArea += this.lanes[i + NUMBER_OF_LANES].drawLane()
         }
     }
 
@@ -52,27 +50,88 @@ class Main {
     moveObstacle() {
         for (let i = 0; i < this.obstacles.length; i++) {
             this.obstacles[i].moveDown()
-            document.getElementById("obstacle" + i).style.top = this.obstacles[i].top + 'px';
         }
     }
+
+    moveCarLeft() {
+        this.car.moveLeft()
+        document.getElementById("car").style.left = this.car.left + 'px'
+    }
+
+    moveCarRight() {
+        this.car.moveRight()
+        document.getElementById("car").style.left = this.car.left + 'px'
+    }
+
+    reDrawAll() {
+        let gameArea = ''
+        for (let i = 0; i < this.lanes.length; i++) {
+            gameArea += this.lanes[i].drawLane()
+        }
+        for (let i = 0; i < this.obstacles.length; i++) {
+            gameArea += this.obstacles[i].drawObstacle()
+        }
+        gameArea += this.car.drawCar()
+        document.getElementById("gameArea").innerHTML = gameArea
+    }
+
+    checkCollision() {
+        for (let i = 0; i < this.obstacleNo; i++) {
+            let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
+            let carCoordinate = document.getElementById('car').getBoundingClientRect()
+            if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
+                endGame()
+            }
+        }
+    }
+
+
 }
 
 
 let game = new Main()
 game.createLanes()
 game.createCar()
-document.getElementById("gameArea").innerHTML = gameArea;
+game.reDrawAll();
+
+function endGame() {
+    alert("Thua roi nha'")
+
+    location.reload();
+    cancelAnimationFrame(drawAnimation)
+}
+
 function drawAll() {
     game.moveLane();
     game.moveObstacle();
-    requestAnimationFrame(drawAll);
+    game.checkCollision()
+    game.reDrawAll();
+    let drawAnimation;
+    drawAnimation = requestAnimationFrame(drawAll);
 }
+
 function addO() {
     game.createObstacle();
-    document.getElementById("gameArea").innerHTML = gameArea;
+    game.reDrawAll();
     setTimeout(addO, 1000);
 }
+
+
+// key event
+function moveSelection(evt) {
+    switch (evt.keyCode) {
+        case 37:
+            game.moveCarLeft();
+            break;
+        case 39:
+            game.moveCarRight();
+            break;
+    }
+}
+
+function docReady() {
+    window.addEventListener('keydown', moveSelection);
+}
+
 drawAll()
-
 addO();
-

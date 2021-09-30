@@ -15,7 +15,7 @@ class Reward {
     }
 
     drawReward() {
-        return '<img class="imgO" id="' + this.id + '" src="' + this.src + '" height="' + REWARD_HEIGHT + '" width="' + REWARD_WIDTH + '" style="position:absolute;left:' + this.left + 'px; top:' + this.top + 'px"/>'
+        return '<img class="imgR" id="' + this.id + '" src="' + this.src + '" height="' + REWARD_HEIGHT + '" width="' + REWARD_WIDTH + '" style="position:absolute;left:' + this.left + 'px; top:' + this.top + 'px"/>'
 
     }
     moveDown() {

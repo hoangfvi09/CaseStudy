@@ -2,14 +2,14 @@ class Obstacle {
     top;
     left;
     src;
-    score;
+    status;
 
     constructor(id) {
         this.top = -OBSTACLE_HEIGHT
         this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH
         this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.jpg'
         this.id = id
-        this.core=-20
+        this.status=true;
     }
 
     drawObstacle() {

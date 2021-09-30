@@ -8,6 +8,7 @@ class Main {
     rewardNo;
     rewards;
     playerScore;
+    lives;
 
     constructor() {
         this.lanes = []
@@ -15,7 +16,8 @@ class Main {
         this.rewards = [];
         this.obstacleNo = 0;
         this.rewardNo = 0;
-        this.playerScore=0;
+        this.playerScore = 0;
+        this.lives = 5;
     }
 
     createCar() {
@@ -23,12 +25,6 @@ class Main {
         gameArea += this.car.drawCar()
     }
 
-    // createObstacle() {
-    //     for (let i = 0; i < NUMBER_OF_OBSTACLES; i++) {
-    //         this.obstacles.push(new Obstacle('obstacle' + i));
-    //         gameArea += this.obstacles[i].drawObstacle();
-    //     }
-    // }
     createObstacle() {
         if (this.obstacleNo < NUMBER_OF_OBSTACLES) {
             this.obstacles.push(new Obstacle(('obstacle' + this.obstacleNo)))
@@ -87,7 +83,9 @@ class Main {
             gameArea += this.lanes[i].drawLane()
         }
         for (let i = 0; i < this.obstacles.length; i++) {
-            gameArea += this.obstacles[i].drawObstacle()
+            if (this.obstacles[i].status === true) {
+                gameArea += this.obstacles[i].drawObstacle()
+            }
         }
         for (let i = 0; i < this.rewards.length; i++) {
             if (this.rewards[i].status === true) {
@@ -101,22 +99,44 @@ class Main {
 
     checkCollision() {
         for (let i = 0; i < this.obstacleNo; i++) {
-            let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
-            let carCoordinate = document.getElementById('car').getBoundingClientRect()
-            if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
-                endGame()
+            if (this.obstacles[i].status === true) {
+                let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
+                let carCoordinate = document.getElementById('car').getBoundingClientRect()
+
+                if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
+                    this.playerScore -= 50
+                    this.obstacles[i].status = false
+                    this.lives--
+                    console.log(this.lives)
+                    if ((this.playerScore < 0) || (this.lives === 0)) {
+                        endGame()
+
+                    }
+
+                }
             }
         }
+
+        // if (this.rewards[i].status === true){
+        //     let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
+        //     if ((obstacleCoordinate.x === rewardCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > obstacleCoordinate.y)) {
+        //         this.rewards[i].status=false
+        //     }
+        // }
+
+
     }
-    checkGainReward(){
+
+    checkGainReward() {
         for (let i = 0; i < this.rewardNo; i++) {
             if (this.rewards[i].status === true) {
                 let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
                 let carCoordinate = document.getElementById('car').getBoundingClientRect()
                 if ((rewardCoordinate.x === carCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > carCoordinate.y)) {
-                    // this.playerScore+=20
+                    this.playerScore += 20
                     this.rewards[i].status = false
-                    console.log(game.rewards[i].status)
+                    console.log(this.playerScore)
+                    console.log(this.lives)
                 }
 
             }
@@ -154,13 +174,13 @@ function drawAll() {
 function addO() {
     game.createObstacle();
     game.reDrawAll();
-    setTimeout(addO, 1000);
+    setTimeout(addO, 6000);
 }
 
 function addR() {
     game.createReward();
     game.reDrawAll();
-    setTimeout(addR, 10000);
+    setTimeout(addR, 8000);
 }
 
 

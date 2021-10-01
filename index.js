@@ -128,7 +128,6 @@ class Main {
                     this.playerScore -= 50
                     this.obstacles[i].status = false
                     this.lives--
-                    console.log(this.lives)
                     if ((this.playerScore < 0) || (this.lives === 0)) {
                         endGame()
 
@@ -137,16 +136,14 @@ class Main {
                 }
             }
         }
-
-        // if (this.rewards[i].status === true){
-        //     let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
-        //     if ((obstacleCoordinate.x === rewardCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > obstacleCoordinate.y)) {
-        //         this.rewards[i].status=false
-        //     }
-        // }
-
-
     }
+    // checkOverlap(){
+    //     for(let i=0;i<this.obstacles.length;i++){
+    //         for(let j=0;j<=this.rewards.length;j++){
+    //             let
+    //         }
+    //     }
+    // }
 
     checkGainReward() {
         for (let i = 0; i < this.rewardNo; i++) {
@@ -156,8 +153,6 @@ class Main {
                 if ((rewardCoordinate.x === carCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > carCoordinate.y)) {
                     this.playerScore += 20
                     this.rewards[i].status = false
-                    console.log(this.playerScore)
-                    console.log(this.lives)
                 }
 
             }
@@ -166,6 +161,9 @@ class Main {
     upDateScore(){
         document.getElementById("score").innerHTML='SCORE: '+this.playerScore
     }
+    updateLives(){
+        document.getElementById("lives").innerHTML='LIVES: '+this.lives
+    }
 }
 
 
@@ -173,13 +171,6 @@ let game = new Main()
 game.createLanes()
 game.createCar()
 game.reDrawAll();
-
-function endGame() {
-    alert("Thua roi nha'")
-
-    location.reload();
-    cancelAnimationFrame(drawAnimation)
-}
 
 function drawAll() {
     game.checkCollision()
@@ -190,20 +181,27 @@ function drawAll() {
     // game.movePuddle()
     game.reDrawAll();
     game.upDateScore()
+    game.updateLives()
     let drawAnimation;
     drawAnimation = requestAnimationFrame(drawAll);
+}
+function endGame() {
+    alert("Thua roi nha'")
+
+    location.reload();
+    cancelAnimationFrame(drawAnimation)
 }
 
 function addO() {
     game.createObstacle();
     game.reDrawAll();
-    setTimeout(addO, 3000);
+    setTimeout(addO, 1900);
 }
 
 function addR() {
     game.createReward();
     game.reDrawAll();
-    setTimeout(addR, 1500);
+    setTimeout(addR, 3400);
 }
 // function addM() {
 //     game.createPuddle();
@@ -231,4 +229,4 @@ function docReady() {
 drawAll()
 addO();
 addR();
-addM();
+// addM();

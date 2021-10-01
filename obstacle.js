@@ -18,7 +18,8 @@ class Obstacle {
 
     moveDown() {
         if (this.top > MAP_TOP+MAP_HEIGHT) {
-            this.top = -OBSTACLE_HEIGHT / 2
+            this.status=true
+            this.top = -OBSTACLE_HEIGHT
             this.src = 'image/obstacle' + Math.ceil(Math.random() * 3) + '.png'
             this.left= MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH+40
         } else {

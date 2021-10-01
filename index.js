@@ -20,7 +20,7 @@ class Main {
         this.obstacleNo = 0;
         this.rewardNo = 0;
         this.playerScore = 0;
-        this.lives = 5;
+        this.lives = 3;
         this.puddles=[];
         this.puddleNo=0;
     }

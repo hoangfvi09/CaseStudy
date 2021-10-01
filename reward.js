@@ -4,7 +4,7 @@ class Reward {
 
     constructor(id) {
         this.top = -REWARD_HEIGHT
-        this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES) * LANE_WIDTH+40
+        this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES) * LANE_WIDTH
         this.id = id
 
     }
@@ -18,7 +18,7 @@ class Reward {
         if (this.top > MAP_TOP + MAP_HEIGHT) {
             this.status = true
             this.top = -REWARD_HEIGHT
-            this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES) * LANE_WIDTH+40
+            this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES) * LANE_WIDTH
         } else {
             this.top += REWARD_SPEED
         }

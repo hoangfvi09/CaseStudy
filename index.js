@@ -95,17 +95,18 @@ class Main {
 
     reDrawAll() {
         let gameArea = ''
+
         for (let i = 0; i < this.lanes.length; i++) {
             gameArea += this.lanes[i].drawLane()
-        }
-        for (let i = 0; i < this.obstacles.length; i++) {
-            if (this.obstacles[i].status === true) {
-                gameArea += this.obstacles[i].drawObstacle()
-            }
         }
         for (let i = 0; i < this.rewards.length; i++) {
             if (this.rewards[i].status === true) {
                 gameArea += this.rewards[i].drawReward()
+            }
+        }
+        for (let i = 0; i < this.obstacles.length; i++) {
+            if (this.obstacles[i].status === true) {
+                gameArea += this.obstacles[i].drawObstacle()
             }
         }
         for (let i = 0; i < this.puddles.length; i++) {
@@ -113,6 +114,7 @@ class Main {
                 gameArea += this.puddles[i].drawPuddle()
 
         }
+        // this.checkOverlap()
 
         gameArea += this.car.drawCar()
         document.getElementById("gameArea").innerHTML = gameArea
@@ -137,13 +139,18 @@ class Main {
             }
         }
     }
-    // checkOverlap(){
-    //     for(let i=0;i<this.obstacles.length;i++){
-    //         for(let j=0;j<=this.rewards.length;j++){
-    //             let
-    //         }
-    //     }
-    // }
+    checkOverlap(){
+        for(let i=0;i<this.obstacleNo;i++){
+            for(let j=0;j<this.rewardNo;j++){
+                let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
+                let rewardCoordinate = document.getElementById('reward' + j).getBoundingClientRect()
+                let isOverlap= ((obstacleCoordinate.y+OBSTACLE_HEIGHT>rewardCoordinate.y)||(rewardCoordinate.y+REWARD_HEIGHT>obstacleCoordinate.y))&&(obstacleCoordinate.x===rewardCoordinate.x)
+           if(isOverlap){
+               this.obstacles[i].status=false
+           }
+            }
+        }
+    }
 
     checkGainReward() {
         for (let i = 0; i < this.rewardNo; i++) {
@@ -173,12 +180,14 @@ game.createCar()
 game.reDrawAll();
 
 function drawAll() {
+
     game.checkCollision()
     game.checkGainReward()
     game.moveLane();
     game.moveObstacle();
     game.moveReward();
     // game.movePuddle()
+    // game.checkOverlap()
     game.reDrawAll();
     game.upDateScore()
     game.updateLives()

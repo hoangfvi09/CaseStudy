@@ -128,7 +128,8 @@ class Main {
                 let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
                 let carCoordinate = document.getElementById('car').getBoundingClientRect()
 
-                if ((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > carCoordinate.y)) {
+                if (((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > 30+carCoordinate.y))
+                &&(obstacleCoordinate.y<(carCoordinate.y+0.8*CAR_HEIGHT))){
                     this.playerScore -= 50
                     this.obstacles[i].status = false
                     this.lives--

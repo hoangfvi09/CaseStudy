@@ -27,6 +27,7 @@ class Sound {
     }
 }
 let gainCoin=new Sound('sound/gainCoin.m4a')
+gainCoin.speedUp()
 let fail=new Sound('sound/fail.m4a')
 let background= new Sound('sound/background.m4a')
 let crash=new Sound('sound/crash.m4a')

@@ -229,6 +229,7 @@ function drawAll() {
     drawAnimation = requestAnimationFrame(drawAll);
 }
 function endGame() {
+    addHighScore()
     game.updateLives()
     game.upDateScore()
     game.updateLevel()
@@ -236,8 +237,7 @@ function endGame() {
     background.stop()
     fail.play()
     cancelAnimationFrame(drawAnimation)
-    highScore.push(new HighScore(game.playerScore))
-    console.log(highScore)
+
 }
 
 function addO() {

@@ -1,9 +1,11 @@
-class HighScore{
-    // name;
-    highScore;
-    constructor(name,highScore) {
-        // this.name=name
-        this.highScore=highScore
-    }
+
+
+const highScore = JSON.parse(localStorage.getItem("highScores")) || [];
+function addHighScore(){
+let score={score:game.playerScore}
+    highScore.push(score)
+    highScore.sort((a, b)=>b.score-a.score)
+
+    localStorage.setItem('highScores',JSON.stringify(highScore))
 }
-let highScore=[]
+console.log(highScore)

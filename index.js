@@ -54,12 +54,6 @@ class Main {
             this.rewardNo++;
         }
     }
-    createPuddle() {
-        if (this.puddleNo < NUMBER_OF_PUDDLE) {
-            this.puddles.push(new Puddle('puddle' + this.puddleNo))
-            this.puddleNo++;
-        }
-    }
 
     moveLane() {
         for (let i = 0; i < this.lanes.length; i++) {
@@ -116,7 +110,7 @@ class Main {
                 gameArea += this.puddles[i].drawPuddle()
 
         }
-        // this.checkOverlap()
+
 
         gameArea += this.car.drawCar()
         document.getElementById("gameArea").innerHTML = gameArea
@@ -130,6 +124,14 @@ class Main {
 
                 if (((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > 30+carCoordinate.y))
                 &&(obstacleCoordinate.y<(carCoordinate.y+0.8*CAR_HEIGHT))){
+                    document.querySelector('.lose').classList.remove('hide')
+                    document.querySelector('.loseALife').classList.remove('hide')
+
+                    setTimeout(function (){
+                        document.querySelector('.lose').classList.add('hide')
+                        document.querySelector('.loseALife').classList.add('hide')
+                    },500)
+
                     this.playerScore -= 50
 
                     this.lives--
@@ -145,18 +147,6 @@ class Main {
             }
         }
     }
-    checkOverlap(){
-        for(let i=0;i<this.obstacleNo;i++){
-            for(let j=0;j<this.rewardNo;j++){
-                let obstacleCoordinate = document.getElementById('obstacle' + i).getBoundingClientRect()
-                let rewardCoordinate = document.getElementById('reward' + j).getBoundingClientRect()
-                let isOverlap= ((obstacleCoordinate.y+OBSTACLE_HEIGHT>rewardCoordinate.y)||(rewardCoordinate.y+REWARD_HEIGHT>obstacleCoordinate.y))&&(obstacleCoordinate.x===rewardCoordinate.x)
-           if(isOverlap){
-               this.obstacles[i].status=false
-           }
-            }
-        }
-    }
 
     checkGainReward() {
         for (let i = 0; i < this.rewardNo; i++) {
@@ -164,12 +154,15 @@ class Main {
                 let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
                 let carCoordinate = document.getElementById('car').getBoundingClientRect()
                 if ((rewardCoordinate.x === carCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > carCoordinate.y)) {
+                    document.querySelector('.gain').classList.remove('hide')
+                    setTimeout(function (){
+                        document.querySelector('.gain').classList.add('hide')
+                    },500)
 
                     this.playerScore += 20
                     this.rewards[i].status = false
                     gainCoin.stop()
                     gainCoin.play()
-
                 }
 
             }
@@ -196,9 +189,13 @@ class Main {
     }
 }
 
-// let userName=document.getElementById("userName").value
+
 let game = new Main()
-// document.querySelector(".GameOver").classList.add('hide')
+document.querySelector(".loseALife").classList.add('hide')
+document.querySelector(".lose").classList.add('hide')
+document.querySelector(".gain").classList.add('hide')
+document.querySelector('.GameOver').classList.add('hide')
+
 function start(){
     document.querySelector(".StartScreen").classList.add("hide")
 
@@ -224,8 +221,6 @@ function drawAll() {
     game.moveLane();
     game.moveObstacle();
     game.moveReward();
-    // game.movePuddle()
-    // game.checkOverlap()
     game.reDrawAll();
     game.upDateScore()
     game.updateLives()
@@ -237,17 +232,12 @@ function endGame() {
     game.updateLives()
     game.upDateScore()
     game.updateLevel()
-    document.getElementById('result').innerHTML= '<img src="image/gameover.jpg"><br>'+
-        '<button onClick="replay()">REPLAY</button> '
+    document.querySelector('.GameOver').classList.remove('hide')
     background.stop()
     fail.play()
-    // alert("Thua roi nha'")
-    // location.reload();
     cancelAnimationFrame(drawAnimation)
     highScore.push(new HighScore(game.playerScore))
     console.log(highScore)
-
-    // document.querySelector('.StartScreen').classList.remove('hide')
 }
 
 function addO() {
@@ -261,14 +251,6 @@ function addR() {
     game.reDrawAll();
     setTimeout(addR, 3400);
 }
-// function addM() {
-//     game.createPuddle();
-//     game.reDrawAll();
-//     setTimeout(addM, 3000);
-// }
-
-
-// key event
 function moveSelection(evt) {
     switch (evt.keyCode) {
         case 37:
@@ -283,6 +265,3 @@ function moveSelection(evt) {
 function docReady() {
     window.addEventListener('keydown', moveSelection);
 }
-
-
-// addM();

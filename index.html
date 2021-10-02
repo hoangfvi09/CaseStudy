@@ -105,19 +105,24 @@
             position: absolute;
             z-index: 6;
             top: 200px;
-            left:390px;
-            width: 50%;
-            height: 50%;
+            left:12%;
+            width: 75%;
+            height: 45%;
             cursor: pointer;
             border-radius: 23px;
             text-align: center;
             alignment: center;
-
+            font-size: 100px;
+            background-color: rgba(0, 2, 0, 0.95);
+            color: #0bd765;
+            padding: 0 10px;
+            line-height:1.6;
 
         }
         .hide{
             display: none;
         }
+
     </style>
 
 
@@ -136,12 +141,16 @@
     <button onclick="start()" style="width: 150px; height: 75px; border-radius: 5px;font-size:25px">PLAY</button>
 </div>
 <div class="GameOver" id="result">
-<!--    <img src="image/gameover.jpg"><br>-->
-<!--    <button onclick="start()">REPLAY</button>-->
+    GAME OVER
+    <button onClick="replay()" style="width: 170px; height: 75px; border-radius: 5px;font-size:25px">REPLAY</button>
+
 </div>
 <div id="score" class="score"></div>
 <div id="lives" class="lives"></div>
 <div id="level" class="level"></div>
+<div class="loseALife"><img src="image/losealife.png" id="loseALife" style="width:80px;height:75px;top:205px;left: 355px;position: absolute"></div>
+<div class="gain"><img src="image/gain.png" id="gain" style="width:75px;height:35px;top:15px;left: 355px;position: absolute"></div>
+<div class="lose"><img src="image/lose.png" id="lose" style="width:80px;height:40px;top:70px;left: 355px;position: absolute"></div>
 <script src="const.js"></script>
 <script src="lane.js"></script>
 <script src="obstacle.js"></script>

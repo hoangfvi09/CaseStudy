@@ -27,4 +27,4 @@ let goDownSpeed=3
 // const NUMBER_OF_PUDDLE=4
 // const PUDDLE_SPEED=OBSTACLE_SPEED
 // const PUDDLE_SRC='image/puddle.png'
-const REWARD_SRC='image/reward.png'
+const REWARD_SRC='image/reward.gif'

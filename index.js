@@ -131,12 +131,14 @@ class Main {
                 if (((obstacleCoordinate.x === carCoordinate.x) && ((obstacleCoordinate.y + OBSTACLE_HEIGHT) > 30+carCoordinate.y))
                 &&(obstacleCoordinate.y<(carCoordinate.y+0.8*CAR_HEIGHT))){
                     this.playerScore -= 50
-                    this.obstacles[i].status = false
+
                     this.lives--
                     crash.play()
                     if ((this.playerScore < 0) || (this.lives === 0)) {
                         endGame()
 
+                    }else{
+                        this.obstacles[i].status = false
                     }
 
                 }
@@ -177,7 +179,8 @@ class Main {
         document.getElementById("score").innerHTML='SCORE: '+this.playerScore
     }
     updateLives(){
-        document.getElementById("lives").innerHTML='LIVES: '+this.lives
+        document.getElementById("lives").innerHTML='<img src="image/lives'+this.lives+'.png" style="width: 80%; margin: 0 10%; position: absolute" >'
+
     }
     updateLevel(){
         document.getElementById("level").innerHTML='LEVEL: '+this.level
@@ -193,13 +196,26 @@ class Main {
     }
 }
 
-
+// let userName=document.getElementById("userName").value
 let game = new Main()
-game.createLanes()
-game.createCar()
-game.reDrawAll();
-background.play()
-background.loop()
+// document.querySelector(".GameOver").classList.add('hide')
+function start(){
+    document.querySelector(".StartScreen").classList.add("hide")
+
+    game.createLanes()
+    game.createCar()
+    game.reDrawAll();
+    background.play()
+    background.loop()
+    drawAll()
+    addO();
+    addR();
+
+}
+function replay(){
+    location.reload()
+}
+
 
 function drawAll() {
 
@@ -218,13 +234,20 @@ function drawAll() {
     drawAnimation = requestAnimationFrame(drawAll);
 }
 function endGame() {
+    game.updateLives()
+    game.upDateScore()
+    game.updateLevel()
+    document.getElementById('result').innerHTML= '<img src="image/gameover.jpg"><br>'+
+        '<button onClick="replay()">REPLAY</button> '
     background.stop()
     fail.play()
-    alert("Thua roi nha'")
-
-
-    location.reload();
+    // alert("Thua roi nha'")
+    // location.reload();
     cancelAnimationFrame(drawAnimation)
+    highScore.push(new HighScore(game.playerScore))
+    console.log(highScore)
+
+    // document.querySelector('.StartScreen').classList.remove('hide')
 }
 
 function addO() {
@@ -261,7 +284,5 @@ function docReady() {
     window.addEventListener('keydown', moveSelection);
 }
 
-drawAll()
-addO();
-addR();
+
 // addM();

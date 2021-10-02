@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        *{
+            font-family: 'Press Start 2P', cursive;
+        }
         .main {
             width: 450px;
             height: 800px;
@@ -37,34 +43,16 @@
             transition: 2.5s;
         }
 
-        @keyframes loop {
-            0% {
-                transform: rotateY(0)
-            }
-            25% {
-                transform: rotateY(45deg)
-            }
-            50% {
-                transform: rotateY(90deg)
-            }
-            75% {
-                transform: rotateY(135deg)
-            }
-            100% {
-                transform: rotateY(180deg)
-            }
-        }
 
         .score {
             position: absolute;
             top: 15px;
             left: 50px;
             text-align: center;
-            padding-top: 23px;
-            font-size: 30px;
-            line-height: 20px;
-            background-color: rgba(34, 119, 8, 0.952);
-            color: white;
+            font-size: 25px;
+            line-height: 100px;
+
+            color: black;
             width: 300px;
             height: 100px;
             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
@@ -74,14 +62,14 @@
             position: absolute;
             top: 200px;
             left: 50px;
-            text-align: center;
-            padding-top: 23px;
-            font-size: 30px;
-            line-height: 20px;
-            background-color: #e6ccff;
-            color: white;
             width: 300px;
             height: 100px;
+            /*text-align: center;*/
+            /*padding-top: 23px;*/
+            /*font-size: 30px;*/
+            /*line-height: 20px;*/
+            /*background-color: #e6ccff;*/
+            /*color: white;*/
             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
         }
         .level {
@@ -89,30 +77,46 @@
             top: 400px;
             left: 50px;
             text-align: center;
-            padding-top: 23px;
-            font-size: 30px;
-            line-height: 20px;
-            background-color: darkblue;
-            color: white;
+            font-size: 25px;
+            line-height: 100px;
+            color: #156997;
             width: 300px;
             height: 100px;
             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
         }
         .StartScreen{
             position: absolute;
-            background-color: rgba(34, 119, 8, 0.952);
-            color: white;
-            z-index: 6;
+            background-color: rgba(114, 196, 90, 0.95);
+            color: #360f0f;
+            z-index: 7;
             top: 200px;
             left:360px;
             text-align: center;
             box-shadow: 0 0 20px 0px rgba(0,0,0,0.1);
-            font-size: 30px;
+            font-size: 22px;
+            width: 50%;
+            height: 50%;
+            cursor: pointer;
+            border-radius: 25px;
+            padding: 0 10px;
+            line-height:1.6;
+        }
+        .GameOver{
+            position: absolute;
+            z-index: 6;
+            top: 200px;
+            left:390px;
             width: 50%;
             height: 50%;
             cursor: pointer;
             border-radius: 23px;
+            text-align: center;
+            alignment: center;
 
+
+        }
+        .hide{
+            display: none;
         }
     </style>
 
@@ -125,15 +129,17 @@
 <body onload="docReady()">
 <div class="main" id="gameArea"></div>
 <div class="StartScreen" >
-    <p>Start Game by clicking Here
-    <br>Left and Right Arrow Keys to move
-    <br>If you hit another car 3 times or your score is less than 0, you will loose
-    <br>Input your name here and click start button to play</p>
-    <input id="userName" type="text">
-    <br>
-    <button onclick="start()">START</button>
+    <p>Left and Right Arrow Keys to move</p>
+    <p>If you hit another car 3 times or your score is less than 0, you will lose</p>
+    <p>Click PLAY button to play</p>
+<!--    <input id="userName" type="text">-->
+    <button onclick="start()" style="width: 150px; height: 75px; border-radius: 5px;font-size:25px">PLAY</button>
 </div>
-<div id="score" class="score">score</div>
+<div class="GameOver" id="result">
+<!--    <img src="image/gameover.jpg"><br>-->
+<!--    <button onclick="start()">REPLAY</button>-->
+</div>
+<div id="score" class="score"></div>
 <div id="lives" class="lives"></div>
 <div id="level" class="level"></div>
 <script src="const.js"></script>
@@ -143,6 +149,7 @@
 <script src="reward.js"></script>
 <script src="puddle.js"></script>
 <script src="sound.js"></script>
+<script src="highScore.js"></script>
 <script src="index.js"></script>
 </body>
 </html>

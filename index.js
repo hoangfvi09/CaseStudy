@@ -11,6 +11,7 @@ class Main {
     lives;
     puddles;
     puddleNo;
+    level;
 
 
     constructor() {
@@ -23,6 +24,7 @@ class Main {
         this.lives = 3;
         this.puddles=[];
         this.puddleNo=0;
+        this.level=1;
     }
 
     createCar() {
@@ -171,6 +173,17 @@ class Main {
     updateLives(){
         document.getElementById("lives").innerHTML='LIVES: '+this.lives
     }
+    updateLevel(){
+        document.getElementById("level").innerHTML='LEVEL: '+this.level
+        if(this.playerScore>=this.level*100){
+            this.level++
+            goDownSpeed+=2
+            for(let i=0;i<this.obstacles.length;i++){
+                this.obstacles[i].speed+=2
+            }
+        }
+
+    }
 }
 
 
@@ -191,6 +204,7 @@ function drawAll() {
     game.reDrawAll();
     game.upDateScore()
     game.updateLives()
+    game.updateLevel()
     let drawAnimation;
     drawAnimation = requestAnimationFrame(drawAll);
 }

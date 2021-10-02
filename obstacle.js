@@ -11,7 +11,7 @@ class Obstacle {
         this.src = 'image/obstacle' + Math.ceil(Math.random() * 4) + '.png'
         this.id = id
         this.status=true;
-        this.speed= OBSTACLE_SPEED+Math.ceil(Math.random() * 2)
+        this.speed= goDownSpeed+Math.ceil(Math.random() * 2)
     }
 
     drawObstacle() {
@@ -26,7 +26,11 @@ class Obstacle {
             this.left= MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES)*LANE_WIDTH
         } else {
             this.top += this.speed
+
         }
 
+    }
+    speedUp(){
+        this.speed+=3
     }
 }

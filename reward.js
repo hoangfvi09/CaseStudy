@@ -20,7 +20,7 @@ class Reward {
             this.top = -REWARD_HEIGHT
             this.left = MAP_LEFT + Math.floor(Math.random() * NUMBER_OF_LANES) * LANE_WIDTH
         } else {
-            this.top += REWARD_SPEED
+            this.top += goDownSpeed
         }
     }
 }

@@ -132,6 +132,7 @@ class Main {
                     this.playerScore -= 50
                     this.obstacles[i].status = false
                     this.lives--
+                    crash.play()
                     if ((this.playerScore < 0) || (this.lives === 0)) {
                         endGame()
 
@@ -160,8 +161,12 @@ class Main {
                 let rewardCoordinate = document.getElementById('reward' + i).getBoundingClientRect()
                 let carCoordinate = document.getElementById('car').getBoundingClientRect()
                 if ((rewardCoordinate.x === carCoordinate.x) && ((rewardCoordinate.y + REWARD_HEIGHT) > carCoordinate.y)) {
+
                     this.playerScore += 20
                     this.rewards[i].status = false
+                    gainCoin.stop()
+                    gainCoin.play()
+
                 }
 
             }
@@ -177,6 +182,7 @@ class Main {
         document.getElementById("level").innerHTML='LEVEL: '+this.level
         if(this.playerScore>=this.level*100){
             this.level++
+            background.speedUp()
             goDownSpeed+=2
             for(let i=0;i<this.obstacles.length;i++){
                 this.obstacles[i].speed+=2
@@ -191,6 +197,8 @@ let game = new Main()
 game.createLanes()
 game.createCar()
 game.reDrawAll();
+background.play()
+background.loop()
 
 function drawAll() {
 
@@ -209,7 +217,10 @@ function drawAll() {
     drawAnimation = requestAnimationFrame(drawAll);
 }
 function endGame() {
+    background.stop()
+    fail.play()
     alert("Thua roi nha'")
+
 
     location.reload();
     cancelAnimationFrame(drawAnimation)

@@ -178,8 +178,13 @@ class Main {
     updateLevel(){
         document.getElementById("level").innerHTML='LEVEL: '+this.level
         if(this.playerScore>=this.level*100){
+            document.querySelector('.levelUp').classList.remove('hide')
+            setTimeout(function (){
+                document.querySelector('.levelUp').classList.add('hide')
+            },500)
             this.level++
             background.speedUp()
+            levelUp.play()
             goDownSpeed+=2
             for(let i=0;i<this.obstacles.length;i++){
                 this.obstacles[i].speed+=2
@@ -195,6 +200,7 @@ document.querySelector(".loseALife").classList.add('hide')
 document.querySelector(".lose").classList.add('hide')
 document.querySelector(".gain").classList.add('hide')
 document.querySelector('.GameOver').classList.add('hide')
+document.querySelector('.levelUp').classList.add('hide')
 
 function start(){
     document.querySelector(".StartScreen").classList.add("hide")

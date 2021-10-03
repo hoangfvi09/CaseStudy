@@ -52,7 +52,7 @@
             font-size: 25px;
             line-height: 100px;
 
-            color: black;
+            color: rgba(59, 112, 44, 0.95);
             width: 300px;
             height: 100px;
             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
@@ -82,6 +82,18 @@
             color: #156997;
             width: 300px;
             height: 100px;
+            box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+        }
+        .highScore {
+            position: absolute;
+            top: 15px;
+            left: 70%;
+            text-align: center;
+            font-size: 25px;
+            line-height: 100px;
+            color: #6e1262;
+            width: 300px;
+            height: 700px;
             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
         }
         .StartScreen{
@@ -151,7 +163,8 @@
 <div class="loseALife"><img src="image/losealife.png" id="loseALife" style="width:80px;height:75px;top:205px;left: 355px;position: absolute"></div>
 <div class="gain"><img src="image/gain.png" id="gain" style="width:75px;height:35px;top:15px;left: 355px;position: absolute"></div>
 <div class="lose"><img src="image/lose.png" id="lose" style="width:80px;height:40px;top:70px;left: 355px;position: absolute"></div>
-<div id="highScore"></div>
+<div class="levelUp"><img src="image/levelUp.png" id="levelUp" style="width:100px;height:40px;top:400px;left: 355px;position: absolute"></div>
+<div id="highScore" class="highScore"></div>
 <script src="const.js"></script>
 <script src="lane.js"></script>
 <script src="obstacle.js"></script>

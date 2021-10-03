@@ -219,7 +219,6 @@ document.querySelector('.PauseScreen').classList.add('hide')
 
 function start(){
     document.querySelector(".StartScreen").classList.add("hide")
-
     game.createLanes()
     game.createCar()
     game.reDrawAll();
@@ -228,13 +227,10 @@ function start(){
     drawAll()
     addO();
     addR();
-
 }
 function replay(){
     location.reload()
 }
-
-
 function drawAll() {
     if(game.status===true){
         game.checkCollision()
@@ -259,9 +255,7 @@ function endGame() {
     background.stop()
     fail.play()
     cancelAnimationFrame(drawAnimation)
-
 }
-
 function addO() {
     game.createObstacle();
     game.reDrawAll();

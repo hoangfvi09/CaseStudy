@@ -12,6 +12,7 @@ class Main {
     puddles;
     puddleNo;
     level;
+    status;
 
 
     constructor() {
@@ -25,6 +26,7 @@ class Main {
         this.puddles=[];
         this.puddleNo=0;
         this.level=1;
+        this.status=true
     }
 
     createCar() {
@@ -192,6 +194,18 @@ class Main {
         }
 
     }
+    pauseGame(){
+        this.status=false
+        document.querySelector('.PauseScreen').classList.remove('hide')
+        background.stop()
+
+    }
+    resumeGame(){
+        this.status=true
+        drawAll()
+        document.querySelector('.PauseScreen').classList.add('hide')
+        background.play()
+    }
 }
 
 
@@ -201,6 +215,7 @@ document.querySelector(".lose").classList.add('hide')
 document.querySelector(".gain").classList.add('hide')
 document.querySelector('.GameOver').classList.add('hide')
 document.querySelector('.levelUp').classList.add('hide')
+document.querySelector('.PauseScreen').classList.add('hide')
 
 function start(){
     document.querySelector(".StartScreen").classList.add("hide")
@@ -221,18 +236,19 @@ function replay(){
 
 
 function drawAll() {
-
-    game.checkCollision()
-    game.checkGainReward()
-    game.moveLane();
-    game.moveObstacle();
-    game.moveReward();
-    game.reDrawAll();
-    game.upDateScore()
-    game.updateLives()
-    game.updateLevel()
-    let drawAnimation;
-    drawAnimation = requestAnimationFrame(drawAll);
+    if(game.status===true){
+        game.checkCollision()
+        game.checkGainReward()
+        game.moveLane();
+        game.moveObstacle();
+        game.moveReward();
+        game.reDrawAll();
+        game.upDateScore()
+        game.updateLives()
+        game.updateLevel()
+        let drawAnimation;
+        drawAnimation = requestAnimationFrame(drawAll);
+    }
 }
 function endGame() {
     addHighScore()
@@ -265,9 +281,15 @@ function moveSelection(evt) {
         case 39:
             game.moveCarRight();
             break;
+        case 32:
+            game.pauseGame()
+            break;
     }
 }
 
 function docReady() {
     window.addEventListener('keydown', moveSelection);
+}
+function resume(){
+    game.resumeGame()
 }

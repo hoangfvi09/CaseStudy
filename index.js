@@ -75,11 +75,6 @@ class Main {
             this.rewards[i].moveDown()
         }
     }
-    movePuddle() {
-        for (let i = 0; i < this.puddles.length; i++) {
-            this.puddles[i].moveDown()
-        }
-    }
 
     moveCarLeft() {
         this.car.moveLeft()
